@@ -1,0 +1,20 @@
+# Ignorer les dépendances
+node_modules/
+
+# Fichiers de build
+dist/
+
+# Fichiers temporaires
+*.log
+*.tmp
+
+# Environnements
+.env
+
+# Configs d'éditeur
+.vscode/
+.idea/
+
+# Systèmes
+.DS_Store
+Thumbs.db
