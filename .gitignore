@@ -17,3 +17,4 @@ dist/
 # Systèmes
 .DS_Store
 Thumbs.db
+backend/

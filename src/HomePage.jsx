@@ -29,7 +29,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function HomePage() {
-  
+
 const [form, setForm] = useState({ name: "", email: "", message: "" });
 const [sent, setSent] = useState(false);
 const [status, setStatus] = useState("");
@@ -43,7 +43,8 @@ const handleSubmit = async (e) => {
   setStatus("Envoi en cours...");
 
   try {
-    const response = await fetch("http://localhost:5000/send-email", {
+    //const response = await fetch("http://localhost:5000/send-email", {
+     const response = await fetch("https://amo-data-backend.onrender.com/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
