@@ -25,14 +25,22 @@ const Card = ({ children }) => (
       className="border border-gray-300 rounded px-4 py-2 w-full"
     />
   );
+
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function HomePage() {
 
 const [form, setForm] = useState({ name: "", email: "", message: "" });
 const [sent, setSent] = useState(false);
 const [status, setStatus] = useState("");
+
+useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
 const handleChange = (e) => {
   setForm({ ...form, [e.target.name]: e.target.value });
@@ -89,7 +97,7 @@ const handleSubmit = async (e) => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center h-screen bg-gradient-to-r from-blue-900 to-gray-900 text-white pt-20">
+      <section className="relative flex items-center justify-center h-screen bg-gradient-to-r from-blue-900 to-gray-900 text-white pt-20" data-aos="fade-zoom-in">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -142,7 +150,7 @@ const handleSubmit = async (e) => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 bg-white text-gray-800">
+      <section id="about" className="py-16 bg-white text-gray-800" data-aos="fade-left">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-8">Qui sommes-nous ?</h2>
           <p className="max-w-4xl mx-auto text-center">
@@ -152,7 +160,7 @@ const handleSubmit = async (e) => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 bg-gray-100 text-gray-800">
+      <section id="projects" className="py-16 bg-gray-100 text-gray-800" data-aos={i % 2 === 0 ? "fade-right" : "fade-left"}>
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-8">Nos Réalisations</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -185,7 +193,7 @@ const handleSubmit = async (e) => {
       </section>
 
      {/* Contact Section */}
-<section id="contact" className="py-16 bg-white text-gray-800">
+<section id="contact" className="py-16 bg-white text-gray-800" data-aos="zoom-in">
   <div className="container mx-auto px-4">
     <h2 className="text-4xl font-bold text-center mb-8">Contactez-nous</h2>
     <div className="max-w-2xl mx-auto">
@@ -223,7 +231,7 @@ const handleSubmit = async (e) => {
 </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-gray-900 text-white">
+      <footer className="py-8 bg-gray-900 text-white" data-aos="fade-up">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
           <p>© 2025 AMO DATA & IA. Tous droits réservés.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
