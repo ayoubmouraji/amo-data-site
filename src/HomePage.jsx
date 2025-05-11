@@ -29,13 +29,48 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function HomePage() {
-  const [sent, setSent] = useState(false);
+  
+const [form, setForm] = useState({ name: "", email: "", message: "" });
+const [sent, setSent] = useState(false);
+const [status, setStatus] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
-  };
+const handleChange = (e) => {
+  setForm({ ...form, [e.target.name]: e.target.value });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setStatus("Envoi en cours...");
+
+  try {
+    const response = await fetch("http://localhost:5000/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(form)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      setSent(true);
+      setStatus("Message envoyé avec succès !");
+      setForm({ name: "", email: "", message: "" });
+    } else {
+      setStatus(result.message || "Erreur lors de l'envoi.");
+    }
+  } catch (error) {
+    console.error("Erreur :", error);
+    setStatus("Erreur serveur. Veuillez réessayer plus tard.");
+  }
+};
+
+  //const handleSubmit = (e) => {
+    //e.preventDefault();
+    //setSent(true);
+   // setTimeout(() => setSent(false), 3000);
+  //};
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -148,21 +183,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-16 bg-white text-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-8">Contactez-nous</h2>
-          <div className="max-w-2xl mx-auto">
-            {sent && <p className="text-green-600 text-center mb-4">Message envoyé !</p>}
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-              <Input type="text" placeholder="Votre nom" required />
-              <Input type="email" placeholder="Votre email" required />
-              <Textarea placeholder="Votre message" rows={5} required />
-              <Button type="submit" className="text-lg">Envoyer</Button>
-            </form>
-          </div>
-        </div>
-      </section>
+     {/* Contact Section */}
+<section id="contact" className="py-16 bg-white text-gray-800">
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl font-bold text-center mb-8">Contactez-nous</h2>
+    <div className="max-w-2xl mx-auto">
+      {sent && <p className="text-green-600 text-center mb-4">Message envoyé !</p>}
+      {status && <p className="text-red-600 text-center mb-4">{status}</p>}
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <Input
+          type="text"
+          name="name"
+          placeholder="Votre nom"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          type="email"
+          name="email"
+          placeholder="Votre email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <Textarea
+          name="message"
+          placeholder="Votre message"
+          rows={5}
+          value={form.message}
+          onChange={handleChange}
+          required
+        />
+        <Button type="submit" className="text-lg">Envoyer</Button>
+      </form>
+    </div>
+  </div>
+</section>
 
       {/* Footer */}
       <footer className="py-8 bg-gray-900 text-white">

@@ -8,7 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "framer-motion": "^10.12.16",
+    "nodemailer": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -18,5 +21,18 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.2",
     "vite": "^4.4.9"
-  }
+  },
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayoubmouraji/amo-data-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayoubmouraji/amo-data-site/issues"
+  },
+  "homepage": "https://github.com/ayoubmouraji/amo-data-site#readme",
+  "description": ""
 }
